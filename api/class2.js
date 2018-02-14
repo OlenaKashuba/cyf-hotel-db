@@ -86,7 +86,6 @@ router.get('/reservations/', function(req, res) {
 //GET A RESERVATION BY ID
 router.get('/reservations/:id', function(req, res) {
   let typeId = req.params.id;
-  console.log(typeId);
   if (typeId == parseInt(typeId)) {
     let sql = 'select * from reservations where reservation_id = ' + req.params.id;
     db.all(sql, [], (err, rows ) => {
@@ -104,6 +103,11 @@ router.get('/reservations/:id', function(req, res) {
 });
 
 // DELETE A RESERVATION BY ID
+router.delete('/reservations/:id', function(req, res) {
+    db.run(`Delete from reservations where reservation_id = ${req.params.id}`);
+});
+
+
 
 // get '/reservations/starting-on/:startDate'
 // TODO: add code here
