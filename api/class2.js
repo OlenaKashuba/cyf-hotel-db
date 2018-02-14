@@ -64,15 +64,6 @@ router.put('/customers/:id', function(req, res) {
   };
 });
 
-//POST A NEW RESERVATION 
-router.post('/reservations/', function(req, res) {
-  if (req.body.customer_id && req.body.room_id && req.body.check_in_date && req.body.check_out_date && req.body.price_per_night) {
-    db.run(`insert into reservations (customer_id,room_id,check_in_date,check_out_date,price_per_night) values (${req.body.customer_id}, ${req.body.room_id}, '${req.body.check_in_date}', '${req.body.check_out_date}', ${req.body.price_per_night})`);
-  } else {
-    console.log(err);
-  };
-});
-
 //GET ALL RESERVATIONS
 router.get('/reservations/', function(req, res) {
   let sql = 'select * from reservations';
@@ -102,16 +93,32 @@ router.get('/reservations/:id', function(req, res) {
   };
 });
 
+//POST A NEW RESERVATION 
+router.post('/reservations/', function(req, res) {
+  if (req.body.customer_id && req.body.room_id && req.body.check_in_date && req.body.check_out_date && req.body.price_per_night) {
+    db.run(`insert into reservations (customer_id,room_id,check_in_date,check_out_date,price_per_night) values (${req.body.customer_id}, ${req.body.room_id}, '${req.body.check_in_date}', '${req.body.check_out_date}', ${req.body.price_per_night})`);
+  } else {
+    console.log(err);
+  };
+});
+
 // DELETE A RESERVATION BY ID
 router.delete('/reservations/:id', function(req, res) {
     db.run(`Delete from reservations where reservation_id = ${req.params.id}`);
 });
 
 
-
-// get '/reservations/starting-on/:startDate'
-// TODO: add code here
-
+// GET A RESERVATION STARTING ON EXACT DATE
+router.get('/reservations/starting-on/:startDate', function(req, res) {
+  let dateSql = req.params.startDate.replace(/-/gi,'/');
+  console.log(dateSql);
+  let sql = `select * from reservations where check_in_date = '${dateSql}'`;
+  db.all(sql, [], (err, rows ) => {
+    res.status(200).json({
+      reservations: rows
+    });
+  });
+});
 
 // get '/reservations/active-on/:date'
 // TODO: add code here
