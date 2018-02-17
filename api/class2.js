@@ -110,9 +110,8 @@ router.delete('/reservations/:id', function(req, res) {
 
 // GET A RESERVATION STARTING ON EXACT DATE
 router.get('/reservations/starting-on/:startDate', function(req, res) {
-  let dateSql = req.params.startDate.replace(/-/gi,'/');
-  console.log(dateSql);
-  let sql = `select * from reservations where check_in_date = '${dateSql}'`;
+  let myDate = req.params.startDate;
+  let sql = `select * from reservations where check_in_date = '${myDate}'`;
   db.all(sql, [], (err, rows ) => {
     res.status(200).json({
       reservations: rows
@@ -120,20 +119,18 @@ router.get('/reservations/starting-on/:startDate', function(req, res) {
   });
 });
 
-// get '/reservations/active-on/:date'
-// TODO: add code here
 
-
-// post '/reservations'
-// EXPECTED JSON Object:
-// {
-//   customer_id: 1,
-//   room_id: 1,
-//   check_in_date: '2018-01-20',
-//   check_out_date: '2018-01-22',
-//   room_price: 129.90
-// }
-// TODO: add code here
+// GET A RESERVATION ACTIVE ON EXACT DATE
+router.get('/reservations/active-on/:date', function(req, res) {
+  let myDate = req.params.date;
+  console.log(myDate);
+  let sql = `select * from reservations where check_in_date <= '${myDate}' and check_out_date >= '${myDate}'`;
+  db.all(sql, [], (err, rows ) => {
+    res.status(200).json({
+      reservations: rows
+    });
+  });
+});
 
 
 // get `/detailed-invoices'
@@ -141,6 +138,6 @@ router.get('/reservations/starting-on/:startDate', function(req, res) {
 
 
 // get `/reservations/details-between/:from_day/:to_day`
-// TODO: add code here
+// TODO: add code here 
 
 module.exports = router;

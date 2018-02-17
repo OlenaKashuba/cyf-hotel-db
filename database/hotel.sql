@@ -76,16 +76,16 @@ create table reservations (
     foreign key(room_id)		references rooms(room_id)
 );
 
-insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (1, 10, '03/03/2018', '08/03/2018', 1000);
-insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (2, 9, '08/03/2018', '10/03/2018', 450);
-insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (3, 1, '03/03/2018', '04/03/2018', 50);
-insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (4, 3, '20/03/2018', '31/03/2018', 100);
-insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (5, 10, '11/03/2018', '15/03/2018', 1000);
-insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (6, 1, '03/04/2018', '08/04/2018', 50);
-insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (7, 2, '08/04/2018', '10/04/2018', 80);
-insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (8, 2, '03/04/2018', '04/04/2018', 80);
-insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (9, 1, '20/04/2018', '30/04/2018', 50);
-insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (10, 9, '11/04/2018', '15/04/2018', 450);
+insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (1, 10, '2018-03-03', '2018-03-03', 1000);
+insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (2, 9, '2018-03-03', '2018-03-07', 450);
+insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (3, 1, '2018-03-08', '2018-03-10', 50);
+insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (4, 3, '2018-03-28', '2018-03-30', 100);
+insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (5, 10, '2018-03-11', '2018-03-14', 1000);
+insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (6, 1, '2018-04-07', '2018-04-10', 50);
+insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (7, 2, '2018-04-08', '2018-04-10', 80);
+insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (8, 2, '2018-04-01', '2018-04-11', 80);
+insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (9, 1, '2018-04-29', '2018-04-30', 50);
+insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (10, 9, '2018-04-11', '2018-04-15', 450);
 
 -- INVOICES 
 
@@ -98,16 +98,16 @@ create table invoices (
     foreign key(reservation_id) references reservations(reservation_id)
 );
 
-insert into invoices (reservation_id, total, invoice_date_time, paid) values (1, 6000, '01/04/2018', 1);
-insert into invoices (reservation_id, total, invoice_date_time) values (2, 1350, '01/04/2018');
-insert into invoices (reservation_id, total, invoice_date_time) values (3, 50, '01/04/2018');
-insert into invoices (reservation_id, total, invoice_date_time, paid) values (4, 1100, '01/04/2018', 1);
-insert into invoices (reservation_id, total, invoice_date_time, paid) values (5, 4000, '01/04/2018', 1);
-insert into invoices (reservation_id, total, invoice_date_time, paid) values (6, 250, '01/05/2018', 1);
-insert into invoices (reservation_id, total, invoice_date_time) values (7, 160, '01/05/2018');
-insert into invoices (reservation_id, total, invoice_date_time) values (8, 80, '01/05/2018');
-insert into invoices (reservation_id, total, invoice_date_time, paid) values (9, 500, '01/05/2018', 1);
-insert into invoices (reservation_id, total, invoice_date_time, paid) values (10, 1800, '01/05/2018', 1);
+insert into invoices (reservation_id, total, invoice_date_time, paid) values (1, 6000, '2018-04-01', 1);
+insert into invoices (reservation_id, total, invoice_date_time) values (2, 1350, '2018-04-01');
+insert into invoices (reservation_id, total, invoice_date_time) values (3, 50, '2018-04-01');
+insert into invoices (reservation_id, total, invoice_date_time, paid) values (4, 1100, '2018-04-01', 1);
+insert into invoices (reservation_id, total, invoice_date_time, paid) values (5, 4000, '2018-04-01', 1);
+insert into invoices (reservation_id, total, invoice_date_time, paid) values (6, 250, '2018-05-01', 1);
+insert into invoices (reservation_id, total, invoice_date_time) values (7, 160, '2018-05-01');
+insert into invoices (reservation_id, total, invoice_date_time) values (8, 80, '2018-05-01');
+insert into invoices (reservation_id, total, invoice_date_time, paid) values (9, 500, '2018-05-01', 1);
+insert into invoices (reservation_id, total, invoice_date_time, paid) values (10, 1800, '2018-05-01', 1);
 
 
 
