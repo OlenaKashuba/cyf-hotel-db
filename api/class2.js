@@ -55,7 +55,8 @@ router.post('/customers/', function(req, res) {
 
 //EDIT A CUSTOMER BY ID (POSTMAN)
 router.put('/customers/:id', function(req, res) {
-  if (req.body.title && req.body.firstname && req.body.surname && req.body.email) {
+  console.log(req.body.title);
+    if (req.body.title && req.body.firstname && req.body.surname && req.body.email) {
     db.run(`update customers set title = '${req.body.title}',
                                 firstname = '${req.body.firstname}',
                                 surname = '${req.body.surname}',
@@ -119,12 +120,22 @@ router.get('/reservations/starting-on/:startDate', function(req, res) {
   });
 });
 
+// router.get('/reservations/active-on/:date', function(req, res) {
+//   let myDate = req.params.date;
+//   console.log(myDate);
+//   let sql = `select * from reservations where check_in_date <= '${myDate}' and check_out_date >= '${myDate}'`;
+//   db.all(sql, [], (err, rows ) => {
+//     res.status(200).json({
+//       reservations: rows
+//     });
+//   });
+// });
 
 // GET A RESERVATION ACTIVE ON EXACT DATE
 router.get('/reservations/active-on/:date', function(req, res) {
   let myDate = req.params.date;
   console.log(myDate);
-  let sql = `select * from reservations where check_in_date <= '${myDate}' and check_out_date >= '${myDate}'`;
+  let sql = `select * from reservations where '${myDate}' between check_in_date and check_out_date`;
   db.all(sql, [], (err, rows ) => {
     res.status(200).json({
       reservations: rows
