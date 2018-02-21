@@ -154,6 +154,15 @@ router.get('/reservations-and-invoices', (req,res) => {
   })
 })
 
+//GET NUMBER OF RESERVATIONS BY CUSTOMER
+router.get('/reservations-per-customer', (req,res) => {
+  let sql = 'select customer_id, count(*) as \'number of reservations\' from reservations group by customer_id';
+  db.all(sql, [], (err,rows) => {
+    res.status(200).json({
+      reservations: rows
+    });
+  })
+})
 
 // get `/detailed-invoices'
 // TODO: add code here
