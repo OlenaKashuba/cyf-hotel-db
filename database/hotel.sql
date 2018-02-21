@@ -10,16 +10,16 @@ create table customers (
 	email 				varchar
 );
 
-insert into customers (title,firstname,surname,email) values ('Mr', 'Donald', 'Trump', 'dontrump@google.com');
+insert into customers (title,firstname,surname,email) values ('Mr', 'Tom', 'Trump', 'dontrump@google.com');
 insert into customers (title,firstname,surname,email) values ('Mrs', 'Olena', 'Kashuba','olenak@gmail.com');
 insert into customers (title,firstname,surname,email) values ('Mr', 'Colm', 'O''conner', 'colm.oconner.github@gmail.com');
-insert into customers (title,firstname,surname,email) values ('Mr', 'Tom', 'Green', 'tomgreen@google.com');
-insert into customers (title,firstname,surname,email) values ('Mrs', 'Ann', 'Swan','annswan@gmail.com');
+insert into customers (title,firstname,surname,email) values ('Mr', 'Tom', 'Trump', 'tomgreen@google.com');
+insert into customers (title,firstname,surname,email) values ('Mrs', 'Ann', 'Snow','annswan@gmail.com');
 insert into customers (title,firstname,surname,email) values ('Mr', 'John', 'Snow', 'johnsnow.github@gmail.com');
-insert into customers (title,firstname,surname,email) values ('Mr', 'Jack', 'Daniels', 'jackdaniels@google.com');
+insert into customers (title,firstname,surname,email) values ('Mr', 'Tom', 'Daniels', 'jackdaniels@google.com');
 insert into customers (title,firstname,surname,email) values ('Mrs', 'Kate', 'Winslet','winkate@gmail.com');
 insert into customers (title,firstname,surname,email) values ('Mrs', 'Diana', 'Mcdonald', 'dianamc.github@gmail.com');
-insert into customers (title,firstname,surname,email) values ('Mrs', 'Linn', 'Lee', 'linnlee.github@gmail.com');
+insert into customers (title,firstname,surname,email) values ('Mrs', 'Linn', 'Snow', 'linnlee.github@gmail.com');
 
 -- ROOM TYPES
 

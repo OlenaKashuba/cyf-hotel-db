@@ -5,7 +5,7 @@ const router = express.Router();
 const filename = './database/database.sqlite';
 const sqlite3    = require('sqlite3').verbose();
 let db = new sqlite3.Database(filename);
-
+db.run("PRAGMA foreign_keys = ON");
 
 // GET CUSTOMERS 
 router.get('/customers', function(req, res) {
@@ -105,7 +105,17 @@ router.post('/reservations/', function(req, res) {
 
 // DELETE A RESERVATION BY ID
 router.delete('/reservations/:id', function(req, res) {
-    db.run(`Delete from reservations where reservation_id = ${req.params.id}`);
+  let sql = `Delete from reservations where reservation_id = ?`;
+      db.run(sql, req.params.id, (err,rows) => {
+        if (err){
+          console.err(err);
+          res.status(500);
+        }
+        else {
+          res.status(202);
+        }
+        res.end();
+      });
 });
 
 
@@ -120,16 +130,6 @@ router.get('/reservations/starting-on/:startDate', function(req, res) {
   });
 });
 
-// router.get('/reservations/active-on/:date', function(req, res) {
-//   let myDate = req.params.date;
-//   console.log(myDate);
-//   let sql = `select * from reservations where check_in_date <= '${myDate}' and check_out_date >= '${myDate}'`;
-//   db.all(sql, [], (err, rows ) => {
-//     res.status(200).json({
-//       reservations: rows
-//     });
-//   });
-// });
 
 // GET A RESERVATION ACTIVE ON EXACT DATE
 router.get('/reservations/active-on/:date', function(req, res) {
@@ -144,6 +144,17 @@ router.get('/reservations/active-on/:date', function(req, res) {
 });
 
 
+// GET RESERVATIONS AND PAID INVOICES TOGETHER
+router.get('/reservations-and-invoices', function(req,res) {
+  let sql = 'SELECT r.reservation_id, r.customer_id, r.check_in_date, r.check_out_date, i.invoice_id, i.invoice_date_time FROM reservations AS r JOIN invoices AS i ON r.reservation_id = i.reservation_id WHERE i.paid = 1';
+  db.all(sql, [], (err,rows) => {
+    res.status(200).json({
+      reservations: rows
+    });
+  })
+})
+
+
 // get `/detailed-invoices'
 // TODO: add code here
 
@@ -152,3 +163,8 @@ router.get('/reservations/active-on/:date', function(req, res) {
 // TODO: add code here 
 
 module.exports = router;
+
+// select c.customer_id AS ‘ID’, c.title, c.firstname, c.surname, r.reservation_id, r.check_in_date, r.check_out_date FROM customers as c JOIN reservations as r ON c.customer_id = r.customer_id; 
+
+
+// Select *, julianday(check_out_date) - julianday(check_in_date) from reservations  order by check_in_date desc, julianday(check_out_date) - julianday(check_in_date) desc;
