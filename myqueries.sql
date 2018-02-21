@@ -13,5 +13,5 @@ select customers.firstname, customers.surname, reservations.customer_id, count(*
 
 select customer_id, check_in_date, count(*) as count from reservations group by customer_id, check_in_date having count >= 2;
 
---CALCULATE TOTAL PAID INVOICES
-select sum(total) from invoices;
+--CALCULATE TOTAL PAID INVOICES FOR APRIL 2018
+select sum(total) from invoices where invoice_date_time between date('2018-04-01') and date('2018-04-30');

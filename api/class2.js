@@ -132,7 +132,7 @@ router.get('/reservations/starting-on/:startDate', function(req, res) {
 
 
 // GET A RESERVATION ACTIVE ON EXACT DATE
-router.get('/reservations/active-on/:date', function(req, res) {
+router.get('/reservations/active-on/:date', (req, res) => {
   let myDate = req.params.date;
   console.log(myDate);
   let sql = `select * from reservations where '${myDate}' between check_in_date and check_out_date`;
@@ -145,7 +145,7 @@ router.get('/reservations/active-on/:date', function(req, res) {
 
 
 // GET RESERVATIONS AND PAID INVOICES TOGETHER
-router.get('/reservations-and-invoices', function(req,res) {
+router.get('/reservations-and-invoices', (req,res) => {
   let sql = 'SELECT r.reservation_id, r.customer_id, r.check_in_date, r.check_out_date, i.invoice_id, i.invoice_date_time FROM reservations AS r JOIN invoices AS i ON r.reservation_id = i.reservation_id WHERE i.paid = 1';
   db.all(sql, [], (err,rows) => {
     res.status(200).json({
