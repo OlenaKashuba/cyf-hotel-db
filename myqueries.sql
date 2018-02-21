@@ -12,3 +12,6 @@ select count(*) from reservations where customer_id = 1;
 select customers.firstname, customers.surname, reservations.customer_id, count(*) as count from customers join reservations on customers.customer_id = reservations.customer_id group by reservations.customer_id having count >=2;
 
 select customer_id, check_in_date, count(*) as count from reservations group by customer_id, check_in_date having count >= 2;
+
+--CALCULATE TOTAL PAID INVOICES
+select sum(total) from invoices;
