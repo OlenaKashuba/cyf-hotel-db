@@ -162,7 +162,17 @@ router.get('/reservations-per-customer', (req,res) => {
       reservations: rows
     });
   })
-})
+});
+
+//GET ROOM TYPE AND TIME IT WAS BOOKED
+router.get('/room-type-booked', (req,res) => {
+  let sql = 'select r.room_id, count(*) as \'number of reservations\', room_types.type_name from rooms join reservations as r on r.room_id = rooms.room_id join room_types on rooms.room_type_id = room_types.room_type_id group by r.room_id';
+  db.all(sql, [], (err,rows) => {
+    res.status(200).json({
+      reservations: rows
+    });
+  })
+});
 
 // get `/detailed-invoices'
 // TODO: add code here
