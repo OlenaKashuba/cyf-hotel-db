@@ -24,3 +24,5 @@ select r.room_id, count(*) as 'number of reservations', room_types.type_name
 		from rooms join reservations as r on r.room_id = rooms.room_id join room_types on rooms.room_type_id = room_types.room_type_id
 		 group by r.room_id;
 
+-- GET A LIST OF ROOMS WITH SEA VIEW. RESERVED MORE THAN 2 TIMES
+select rooms.sea_view, r.reservation_id, count(*) as count from reservations as r join rooms on r.room_id = rooms.room_id group by r.reservation_id having count >=2;

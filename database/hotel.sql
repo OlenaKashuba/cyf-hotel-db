@@ -78,7 +78,7 @@ create table reservations (
 
 insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (1, 10, '2018-03-03', '2018-03-03', 1000);
 insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (2, 9, '2018-03-03', '2018-03-07', 450);
-insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (3, 1, '2018-03-08', '2018-03-10', 50);
+insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (3, 6, '2018-03-08', '2018-03-10', 50);
 insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (4, 3, '2018-03-28', '2018-03-30', 100);
 insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (5, 10, '2018-03-11', '2018-03-14', 1000);
 insert into reservations (customer_id, room_id, check_in_date, check_out_date, price_per_night) values (6, 1, '2018-04-07', '2018-04-10', 50);
