@@ -13,12 +13,14 @@ select customers.firstname, customers.surname, reservations.customer_id, count(*
 
 select customer_id, check_in_date, count(*) as count from reservations group by customer_id, check_in_date having count >= 2;
 
---CALCULATE TOTAL PAID INVOICES FOR APRIL 2018
+-- CALCULATE TOTAL PAID INVOICES FOR APRIL 2018
 select sum(total) from invoices where invoice_date_time between date('2018-04-01') and date('2018-04-30');
 
-select c.firstname, c.surname, r.customer_id, count(*)as count from reservations as r JOIN customers AS c on (c.customer_id = r.customer_id) group by c.customer_id;
+-- GET THE BEST CUSTOMERS (COUNT NUMBER OF RESERVATIONS)
+select c.firstname, c.surname, r.customer_id, count(*) as count from reservations as r JOIN customers AS c on (c.customer_id = r.customer_id) group by c.customer_id;
 
-select customer_id, count(*) as 'number of reservations' from reservations as r join customers as c on c.customer_id = r.customer_id group by customer_id;
-
-select firstname, surname, customer_id count(*) from all_data
+-- GET NUMBER OF RESERVATIONS FOR EACH ROOM ID
+select r.room_id, count(*) as 'number of reservations', room_types.type_name 
+		from rooms join reservations as r on r.room_id = rooms.room_id join room_types on rooms.room_type_id = room_types.room_type_id
+		 group by r.room_id;
 
