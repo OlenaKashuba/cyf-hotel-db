@@ -16,7 +16,7 @@ select customer_id, check_in_date, count(*) as count from reservations group by 
 --CALCULATE TOTAL PAID INVOICES FOR APRIL 2018
 select sum(total) from invoices where invoice_date_time between date('2018-04-01') and date('2018-04-30');
 
-select customers.firstname, customers.surname, count(reservation.customer_id) as 'Number of reservations' from reservations join customers on customers.customer_id = reservations.customer_id group by customer_id;
+select c.firstname, c.surname, r.customer_id, count(*)as count from reservations as r JOIN customers AS c on (c.customer_id = r.customer_id) group by c.customer_id;
 
 select customer_id, count(*) as 'number of reservations' from reservations as r join customers as c on c.customer_id = r.customer_id group by customer_id;
 
