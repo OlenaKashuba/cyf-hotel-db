@@ -174,6 +174,17 @@ router.get('/room-type-booked', (req,res) => {
   })
 });
 
+//GET STATS PER ROOM: AMOUNT OF MONEY IT EARNED, AVERAGE TIME IT WAS BOOKED
+
+router.get('/stats-price-room', (req, res) => {
+  let sql = 'select room_id, count(reservation_id) as \'Times bookes\', count(reservation_id) * price_per_night as \'Total earned\' from reservations group by room_id';
+  db.all(sql, [], (err, rows) => {
+    res.status(200).json({
+      data: rows
+    });
+  })
+});
+
 // get `/detailed-invoices'
 // TODO: add code here
 
