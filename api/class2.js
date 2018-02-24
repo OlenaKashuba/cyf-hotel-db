@@ -184,12 +184,19 @@ router.get('/stats-price-room', (req, res) => {
   })
 });
 
-// get `/detailed-invoices'
-// TODO: add code here
-
-
-// get `/reservations/details-between/:from_day/:to_day`
-// TODO: add code here 
+//GET LIST OF ROOMS AVAILABLE IN SPECIFIC PERIOD OF TIME
+router.get('/rooms/available-in/:from_day/:to_day', (req, res) => {
+  let dayIn = req.params.from_day;
+  let dayOut = req.params.to_day;
+  console.log(dayIn);
+  console.log(dayOut);
+  let sql = `select room_id from rooms except select room_id from reservations where check_in_date > date('${dayIn}') and check_out_date < date('${dayOut}')`;
+  db.all(sql, [], (err,rows) => {
+    res.status(200).json({
+      available: rows
+    });
+  })
+});
 
 module.exports = router;
 

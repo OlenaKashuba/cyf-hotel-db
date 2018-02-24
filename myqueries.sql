@@ -30,3 +30,8 @@ select rooms.room_id, count(r.room_id) as count from reservations as r join room
 --GET STATS PER ROOM: AMOUNT OF MONEY IT EARNED, AVERAGE TIME IT WAS BOOKED
 select room_id, count(reservation_id) as count, count(reservation_id) * price_per_night as sum from reservations group by room_id;
 
+--GET A LIST OF ROOMS THAT WERE NEVER BOOKED
+select room_id from rooms except select room_id from reservations;
+
+--GET A LIST OF ROOMS AVAILABLE ON EXACT DAYS
+select room_id from rooms except select room_id from reservations where check_in_date > date('2018-04-01') and check_out_date < date('2018-04-30');
