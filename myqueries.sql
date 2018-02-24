@@ -25,7 +25,8 @@ select r.room_id, count(*) as 'number of reservations', room_types.type_name
 		 group by r.room_id;
 
 -- GET A LIST OF ROOMS WITH SEA VIEW RESERVED MORE THAN 2 TIMES
-select r.reservation_id, count(r.customer_id) as count from reservations as r join rooms on r.room_id = rooms.room_id join customers as c on c.customer_id = r.customer_id where rooms.sea_view = 1 group by rooms.room_id having count>=2;
+select rooms.room_id, count(r.room_id) as count from reservations as r join rooms on r.room_id = rooms.room_id where rooms.sea_view = 1 group by rooms.room_id having count>=2;
 
 --GET STATS PER ROOM: AMOUNT OF MONEY IT EARNED, AVERAGE TIME IT WAS BOOKED
 select room_id, count(reservation_id) as count, count(reservation_id) * price_per_night as sum from reservations group by room_id;
+
