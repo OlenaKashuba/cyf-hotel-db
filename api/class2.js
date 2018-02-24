@@ -198,6 +198,19 @@ router.get('/rooms/available-in/:from_day/:to_day', (req, res) => {
   })
 });
 
+//GET RESERVATIONS WITH CUSTOMER AND ROOM DETAILS FROM DATE1 TO DATE2
+router.get('/reservations/details_between/:from_day/:to_day', (req, res) => {
+  let dayStart = req.params.from_day;
+  let dayFinish = req.params.to_day;
+  // let sql = 'select c.customer_id, c.title, c.firstname, c.surname, r.reservation_id, r.room_id, r.check_in_date, r.check_out_date, r.price_per_night, room_types.type_name from customers as c join reservations as r on c.customer_id = r.customer_id join rooms on r.room_id = rooms.room_id join room_types on rooms.room_type_id = room_types.room_type_id where r.check_in_date between date(\'2018-04-01\') and date(\'2018-04-30\')';
+  let sql = `select c.customer_id, c.title, c.firstname, c.surname, r.reservation_id, r.room_id, r.check_in_date, r.check_out_date, r.price_per_night, room_types.type_name from customers as c join reservations as r on c.customer_id = r.customer_id join rooms on r.room_id = rooms.room_id join room_types on rooms.room_type_id = room_types.room_type_id where r.check_in_date between date('${dayStart}') and date('${dayFinish}')`;
+  db.all(sql, [], (err,rows) => {
+    res.status(200).json({
+      reservations: rows
+    });
+  })
+});
+
 module.exports = router;
 
 // select c.customer_id AS ‘ID’, c.title, c.firstname, c.surname, r.reservation_id, r.check_in_date, r.check_out_date FROM customers as c JOIN reservations as r ON c.customer_id = r.customer_id; 

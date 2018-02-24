@@ -35,3 +35,6 @@ select room_id from rooms except select room_id from reservations;
 
 --GET A LIST OF ROOMS AVAILABLE ON EXACT DAYS
 select room_id from rooms except select room_id from reservations where check_in_date > date('2018-04-01') and check_out_date < date('2018-04-30');
+
+--GET RESERVATIONS + CUSTOMER DETAILS FROM DATE1 TO DATE2
+select c.customer_id, c.title, c.firstname, c.surname, r.reservation_id, r.room_id, r.check_in_date, r.check_out_date, r.price_per_night, room_types.type_name from customers as c join reservations as r on c.customer_id = r.customer_id join rooms on r.room_id = rooms.room_id join room_types on rooms.room_type_id = room_types.room_type_id where r.check_in_date between date('2018-04-01') and date('2018-04-30');
