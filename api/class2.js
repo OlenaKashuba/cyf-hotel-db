@@ -188,9 +188,10 @@ router.get('/stats-price-room', (req, res) => {
 router.get('/rooms/available-in/:from_day/:to_day', (req, res) => {
   let dayIn = req.params.from_day;
   let dayOut = req.params.to_day;
-  console.log(dayIn);
-  console.log(dayOut);
-  let sql = `select room_id from rooms except select room_id from reservations where check_in_date > date('${dayIn}') and check_out_date < date('${dayOut}')`;
+  let sql = `select room_id 
+            from rooms 
+            except select room_id from reservations 
+            where check_in_date > date('${dayIn}') and check_out_date < date('${dayOut}')`;
   db.all(sql, [], (err,rows) => {
     res.status(200).json({
       available: rows
@@ -202,14 +203,41 @@ router.get('/rooms/available-in/:from_day/:to_day', (req, res) => {
 router.get('/reservations/details_between/:from_day/:to_day', (req, res) => {
   let dayStart = req.params.from_day;
   let dayFinish = req.params.to_day;
-  // let sql = 'select c.customer_id, c.title, c.firstname, c.surname, r.reservation_id, r.room_id, r.check_in_date, r.check_out_date, r.price_per_night, room_types.type_name from customers as c join reservations as r on c.customer_id = r.customer_id join rooms on r.room_id = rooms.room_id join room_types on rooms.room_type_id = room_types.room_type_id where r.check_in_date between date(\'2018-04-01\') and date(\'2018-04-30\')';
-  let sql = `select c.customer_id, c.title, c.firstname, c.surname, r.reservation_id, r.room_id, r.check_in_date, r.check_out_date, r.price_per_night, room_types.type_name from customers as c join reservations as r on c.customer_id = r.customer_id join rooms on r.room_id = rooms.room_id join room_types on rooms.room_type_id = room_types.room_type_id where r.check_in_date between date('${dayStart}') and date('${dayFinish}')`;
+  let sql = `select c.customer_id, c.title, c.firstname, c.surname, r.reservation_id, r.room_id,
+             r.check_in_date, r.check_out_date, r.price_per_night, room_types.type_name 
+            from customers as c 
+            join reservations as r on c.customer_id = r.customer_id 
+            join rooms on r.room_id = rooms.room_id 
+            join room_types on rooms.room_type_id = room_types.room_type_id 
+            where r.check_in_date between date('${dayStart}') and date('${dayFinish}')`;
   db.all(sql, [], (err,rows) => {
     res.status(200).json({
       reservations: rows
     });
   })
 });
+
+router.get('/customers-details', (req, res) => {
+  var sql = `select customers.customer_id,
+     customers.title, 
+     customers.firstname, 
+     customers.surname, 
+     customers.email, 
+     reservations.room_id, 
+     reservations.check_in_date, 
+     reservations.check_out_date from reservations JOIN customers ON reservations.customer_id = customers.customer_id`
+
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      res.status(500).end()
+      console.log(err)
+    } else {
+      res.status(200).json({
+        rows
+      })
+    }
+  })
+})
 
 module.exports = router;
 
